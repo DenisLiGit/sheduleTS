@@ -9,7 +9,7 @@ import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
 import type {AuthRedirectType} from "./SheduleContainer";
 
-const styles = makeStyles((theme) =>({
+const styles = makeStyles((theme) => ({
     root: {
         padding: '16px 24px',
     },
@@ -66,7 +66,8 @@ export const Shedule: FC<AuthRedirectType> = (props) => {
         setSheduleThunk,
         initialValues,
         shedules,
-        setSheduleErrorMessage
+        setSheduleErrorMessage,
+        setInitialValues
     } = props
     const classes = styles()
 
@@ -74,15 +75,25 @@ export const Shedule: FC<AuthRedirectType> = (props) => {
         enableReinitialize: true,
         initialValues,
         validate,
-        onSubmit: (values) => {
-            const dup = shedules.filter(item => (item.title === values.title) &&
-                (item.startDate === values.startDate) &&
-                (item.endDate === values.endDate)
-            )
+        onSubmit: (values, {resetForm}) => {
+            const dup = shedules.filter(item => JSON.stringify(item) === JSON.stringify(values))
             !dup.length ?
-                setSheduleThunk(values)
+                setSheduleThunk(values, false)
                 :
                 setSheduleErrorMessage('Пометка уже существует')
+
+            setInitialValues({
+                title: '',
+                dayOfWeek: 0,
+                description: '',
+                startDate: 0,
+                endDate: 0,
+                color: 'green',
+                icon: 1,
+                check: false,
+                _id: ''
+            })
+            resetForm({})
         }
     })
 
@@ -236,7 +247,18 @@ export const Shedule: FC<AuthRedirectType> = (props) => {
                     color="primary"
                     variant="contained"
                     onClick={() => {
-                        console.log('clear')
+                        setInitialValues({
+                            title: '',
+                            dayOfWeek: 0,
+                            description: '',
+                            startDate: 0,
+                            endDate: 0,
+                            color: 'green',
+                            icon: 1,
+                            check: false,
+                            _id: ''
+                        })
+                        formik.resetForm({})
                     }}
                 >Очистить</Button>
             </form>

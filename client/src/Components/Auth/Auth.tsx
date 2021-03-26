@@ -100,16 +100,16 @@ export const Auth: FC<SheduleRedirectType> = (props) => {
                     />
                     <Button
                         className={classes.buttons}
-                        onClick={submitType.registerSubmit}
-                        color="primary"
-                        variant="contained"
-                        type='submit'>Регистрация</Button>
-                    <Button
-                        className={classes.buttons}
                         onClick={submitType.loginSubmit}
                         color="primary"
                         variant="contained"
                         type='submit'>Вход</Button>
+                    <Button
+                        className={classes.buttons}
+                        onClick={submitType.registerSubmit}
+                        color="primary"
+                        variant="contained"
+                        type='submit'>Регистрация</Button>
                     {errorMessage && (
                         <Typography className={classes.error} variant="body2">
                             {errorMessage}

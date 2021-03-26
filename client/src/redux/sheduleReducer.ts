@@ -154,16 +154,18 @@ export const updateSheduleThunk = (shedule: sheduleI):
     ThunkAction<Promise<void> | sheduleI, RootState, unknown, ActionTypes> =>
     async (dispatch) => {
         shedule.check = true
-        dispatch(setSheduleThunk(shedule))
+        dispatch(setSheduleThunk(shedule, false))
     }
 
-export const setSheduleThunk = (shedule: sheduleI):
+export const setSheduleThunk = (shedule: sheduleI, update: boolean):
     ThunkAction<Promise<void> | sheduleI, RootState, unknown, ActionTypes> =>
     async (dispatch) => {
         const userId = localStorage.getItem('userId')
         try {
-            const res = await sheduleApi.setShedule(userId, shedule)
-            dispatch(actions.setShedule(shedule))
+            await sheduleApi.setShedule(userId, shedule)
+            if(update) {
+                dispatch(actions.setShedule(shedule))
+            }
             dispatch(getSheduleThunk())
         } catch (e) {
             dispatch(actions.setSheduleErrorMessage(e))

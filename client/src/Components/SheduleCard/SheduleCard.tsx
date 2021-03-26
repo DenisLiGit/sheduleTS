@@ -88,6 +88,7 @@ export const SheduleCard: FC<SheduleCardContainerType> = (props) => {
 
     const timeConvert = (timestamp: number): string => {
         const res = timeStamps.filter(item => item.value === timestamp)
+        // console.log(res)
         return res[0].label
     }
 
@@ -105,7 +106,7 @@ export const SheduleCard: FC<SheduleCardContainerType> = (props) => {
                         {GetIcon(shedule.icon)}
                     </div>
                     <Typography className={classes.infoRow} variant="h6" gutterBottom>
-                        {timeConvert(shedule.startDate)}-{timeConvert(shedule.endDate)}
+                        {timeConvert(Number(shedule.startDate))}-{timeConvert(Number(shedule.endDate))}
                     </Typography>
                     <Typography className={classes.infoRow} variant="h6" gutterBottom>
                         {shedule.title}

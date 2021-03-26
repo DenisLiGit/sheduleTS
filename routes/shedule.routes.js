@@ -23,7 +23,7 @@ router.post(
                     await candidate.save()
                     res.status(201).json({"message": "Обновленно"})
                 } else {
-                    //delete shedule.shedule._id
+                    shedule.shedule._id = mongoose.Types.ObjectId();
                     candidate.shedules.push(shedule.shedule)
                     await candidate.save()
                     res.status(201).json({"message": "Сохранено"})

@@ -37,9 +37,13 @@ const mapStateToProps = (state: RootState): StatePropsI => {
     }
 }
 
-const {setSheduleErrorMessage} = actions
+const {setSheduleErrorMessage, setInitialValues} = actions
 
-const conector = connect(mapStateToProps, {setSheduleThunk, setSheduleErrorMessage})
+const conector = connect(mapStateToProps, {
+    setSheduleThunk,
+    setInitialValues,
+    setSheduleErrorMessage
+})
 
 export type AuthRedirectType = ConnectedProps<typeof conector>
 
